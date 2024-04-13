@@ -73,6 +73,7 @@ public class Race_Core {
           }
      }
 
+     @SuppressWarnings("null")
      public static void removeRunner(Player player) {
           if (Race_Run.isEmpty()) {
                if (player.getScoreboard().getObjective(DisplaySlot.SIDEBAR) == null) return;

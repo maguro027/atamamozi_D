@@ -264,6 +264,7 @@ public class Event implements Listener {
           }
      }
 
+     @SuppressWarnings("unlikely-arg-type")
      @EventHandler
      public void AnitBoat_Leave(VehicleExitEvent event) {
           if (!(event.getExited() instanceof Player) || !(event.getVehicle().getType() == EntityType.BOAT)) return;

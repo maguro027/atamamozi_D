@@ -46,6 +46,7 @@ public class Core extends JavaPlugin {
           return Data;
      }
 
+     @SuppressWarnings("unlikely-arg-type")
      @Override
      public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
           if (!(cmd.getName().equalsIgnoreCase("atamamozi_d")) || !(sender instanceof Player)) return false;
