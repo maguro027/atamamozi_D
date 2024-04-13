@@ -16,6 +16,7 @@ import waterpunch.atamamozi_d.plugin.race.Race_Type;
 
 public class Menus {
 
+     //
      static Inventory setBorder(Inventory inv) {
           ItemStack cash = null;
           for (int i = 0; i < 54; ++i) {
