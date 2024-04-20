@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import waterpunch.atamamozi_d.plugin.race.Race;
+import waterpunch.atamamozi_d.plugin.race.Race_Core;
+import waterpunch.atamamozi_d.plugin.tool.CollarMessage;
+import waterpunch.atamamozi_d.plugin.tool.CreateJson;
 
 public class Main {
 
@@ -26,7 +29,7 @@ public class Main {
 
      public static void getRaces() {
           int fil_count = 0;
-          File[] files = waterpunch.atamamozi_d.plugin.tool.CreateJson.file_Race.listFiles();
+          File[] files = CreateJson.file_Race.listFiles();
           if (files == null) return;
           for (File tmpFile : files) {
                if (tmpFile.isDirectory()) {
@@ -37,7 +40,7 @@ public class Main {
                          try (FileReader fileReader = new FileReader(tmpFile)) {
                               Gson gson = new Gson();
                               Race r = gson.fromJson(fileReader, Race.class);
-                              waterpunch.atamamozi_d.plugin.race.Race_Core.Race_list.add(r);
+                              Race_Core.Race_list.add(r);
                               System.out.println(tmpFile.getName());
                          } catch (JsonSyntaxException | JsonIOException | IOException e) {
                               e.printStackTrace();
@@ -45,7 +48,7 @@ public class Main {
                     }
                }
           }
-          System.out.println(waterpunch.atamamozi_d.plugin.tool.CollarMessage.setInfo() + fil_count + " Race Load");
+          System.out.println(CollarMessage.setInfo() + fil_count + " Race Load");
      }
 
      public static void createfile(String string) {
