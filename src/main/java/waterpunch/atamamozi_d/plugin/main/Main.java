@@ -28,27 +28,20 @@ public class Main {
      }
 
      public static void getRaces() {
-          int fil_count = 0;
           File[] files = CreateJson.file_Race.listFiles();
           if (files == null) return;
           for (File tmpFile : files) {
-               if (tmpFile.isDirectory()) {
-                    getRaces();
-               } else {
-                    if (tmpFile.getName().substring(tmpFile.getName().lastIndexOf(".")).equals(".json")) {
-                         fil_count++;
-                         try (FileReader fileReader = new FileReader(tmpFile)) {
-                              Gson gson = new Gson();
-                              Race r = gson.fromJson(fileReader, Race.class);
-                              Race_Core.Race_list.add(r);
-                              System.out.println(tmpFile.getName());
-                         } catch (JsonSyntaxException | JsonIOException | IOException e) {
-                              e.printStackTrace();
-                         }
-                    }
+               if (tmpFile.isDirectory()) continue;
+               if (!tmpFile.getName().substring(tmpFile.getName().lastIndexOf(".")).equals(".json")) continue;
+               try (FileReader fileReader = new FileReader(tmpFile)) {
+                    Gson gson = new Gson();
+                    Race_Core.Race_list.add(gson.fromJson(fileReader, Race.class));
+                    System.out.println(tmpFile.getName());
+               } catch (JsonSyntaxException | JsonIOException | IOException e) {
+                    e.printStackTrace();
                }
           }
-          System.out.println(CollarMessage.setInfo() + fil_count + " Race Load");
+          System.out.println(CollarMessage.setInfo() + "Load Complete " + Race_Core.Race_list.size() + " Races");
      }
 
      public static void createfile(String string) {
