@@ -124,7 +124,7 @@ public class Menus {
           }
           Race_Runner run = Race_Core.getRuner(player);
           if (run == null || !(run.getMode() == Race_Mode.EDIT)) {
-               player.sendMessage(waterpunch.atamamozi_d.plugin.tool.CollarMessage.setInfo() + "Race Creating Start");
+               player.sendMessage(CollarMessage.setInfo() + "Race Creating Start");
                run = null;
                Race_Core.removeRunner(player);
                Race RACE = new Race(player);
@@ -163,7 +163,7 @@ public class Menus {
                     RACE_TYPE_Meta.setDisplayName(ChatColor.GOLD + "RACE TYPE : " + ChatColor.RED + "BOAT");
                     break;
                default:
-                    player.sendMessage(waterpunch.atamamozi_d.plugin.tool.CollarMessage.setWarning() + "[" + Race_Core.getRace(run.getRaceID()).getRace_Type() + "] is ERR");
+                    player.sendMessage(CollarMessage.setWarning() + "[" + Race_Core.getRace(run.getRaceID()).getRace_Type() + "] is ERR");
                     break;
           }
           ItemStack RAP = new ItemStack(Material.COMPARATOR);
@@ -254,7 +254,7 @@ public class Menus {
 
           if (!(Race_Core.getRace(run.getRaceID()).getErrorCount() == 0)) {
                lores.add("");
-               lores.add(waterpunch.atamamozi_d.plugin.tool.CollarMessage.setWarning() + ChatColor.RED + Race_Core.getRace(run.getRaceID()).getErrorCount() + "Error");
+               lores.add(CollarMessage.setWarning() + ChatColor.RED + Race_Core.getRace(run.getRaceID()).getErrorCount() + "Error");
           }
 
           STARTPOINT_Meta.setLore(STARTPOINT_lores);

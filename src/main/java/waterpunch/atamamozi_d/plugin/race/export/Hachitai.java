@@ -20,16 +20,16 @@ public class Hachitai {
           }
      }
 
+     public static boolean CheckPlanePassed(Race_Runner Runner) {
+          float C = PCalc(Runner, Runner.getnewLoc());
+          float P = PCalc(Runner, Runner.getoldLoc());
+
+          return (C * P <= 0) && (C != P);
+     }
+
      static float PCalc(Race_Runner Runner, Location location) {
           double[] abcd = Race_Core.getRace(Runner.getRaceID()).getCheckPointLoc().get(Runner.getCheckPoint()).getabcd();
           return (float) (((abcd[0] * location.getX()) + (abcd[1] * location.getY()) + (abcd[2] * location.getZ())) + abcd[3]);
-     }
-
-     public static boolean CheckPlanePassed(Race_Runner Runner, Location to, Location from) {
-          float C = PCalc(Runner, to);
-          float P = PCalc(Runner, from);
-
-          return (C * P <= 0) && (C != P);
      }
 
      static double GetDot(double x1, double y1, double z1, double x2, double y2, double z2) {

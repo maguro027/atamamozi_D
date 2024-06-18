@@ -31,8 +31,7 @@ public class Core extends JavaPlugin {
 
           saveDefaultConfig();
           getConfig();
-          TIME = getConfig().getInt("Setting.CountDown");
-          TIME = 30;
+          TIME = getConfig().getInt("Setting.CountDown.WAIT");
 
           Data = this;
           new Event(this);

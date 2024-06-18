@@ -39,6 +39,7 @@ public class Main {
                     System.out.println(tmpFile.getName());
                } catch (JsonSyntaxException | JsonIOException | IOException e) {
                     e.printStackTrace();
+                    continue;
                }
           }
           System.out.println(CollarMessage.setInfo() + "Load Complete " + Race_Core.Race_list.size() + " Races");

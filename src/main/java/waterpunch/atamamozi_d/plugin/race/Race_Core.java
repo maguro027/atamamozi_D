@@ -25,18 +25,17 @@ public class Race_Core {
                return;
           }
           Race_Runner run = getRuner(player);
-          if (isJoin(player)) {
-               switch (run.getMode()) {
-                    case WAIT:
-                    case RUN:
-                    case EDIT:
-                         System.out.println("run" + run.getMode().toString());
-                         player.sendMessage(CollarMessage.setWarning() + "Already join race");
-                         return;
-                    default:
-                         break;
-               }
+          if (isJoin(player)) switch (run.getMode()) {
+               case WAIT:
+               case RUN:
+               case EDIT:
+                    System.out.println("run" + run.getMode().toString());
+                    player.sendMessage(CollarMessage.setWarning() + "Already join race");
+                    return;
+               default:
+                    break;
           }
+
           switch (Race.getMode()) {
                case WAIT:
                     if (Race_Run.get(Race.getUUID()) == null) Race_Run.put(Race.getUUID(), new ArrayList<Race_Runner>());
