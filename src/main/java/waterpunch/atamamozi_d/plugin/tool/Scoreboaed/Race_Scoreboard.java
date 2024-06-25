@@ -42,7 +42,7 @@ public class Race_Scoreboard {
                     }
                     Scoreboards.add(objective.getScore("/atamamozi_d " + ChatColor.AQUA + "start"));
                     Scoreboards.add(objective.getScore("[" + ChatColor.AQUA + "ENTRY" + ChatColor.WHITE + "]"));
-                    for (Race_Runner val : Race_Core.Race_Run.get(RACE.getUUID())) Scoreboards.add(objective.getScore("-" + ChatColor.AQUA + val.getPlayer().getName()));
+                    for (Race_Runner val : Race_Core.getRunners(RACE.getUUID())) Scoreboards.add(objective.getScore("-" + ChatColor.AQUA + val.getPlayer().getName()));
                     break;
                case RUN:
                     Scoreboards.add(objective.getScore("Time : "));
@@ -54,9 +54,9 @@ public class Race_Scoreboard {
                     Scoreboards.add(objective.getScore("SPEED : " + new BigDecimal((Math.sqrt(Math.pow(runner.getnewLoc().getX() - runner.getoldLoc().getX(), 2) + Math.pow(runner.getnewLoc().getZ() - runner.getoldLoc().getZ(), 2)) * 20 * 60 * 60) / 1000).setScale(1, RoundingMode.HALF_UP).intValue()));
                     break;
                case GOAL:
-                    if (Race_Core.Race_Run.get(RACE.getUUID()) == null) break;
+                    if (Race_Core.getRunners(RACE.getUUID()) == null) break;
                     Scoreboards.add(objective.getScore("[" + ChatColor.AQUA + "SCORE" + ChatColor.WHITE + "]"));
-                    for (Race_Runner val : Race_Core.Race_Run.get(RACE.getUUID())) {
+                    for (Race_Runner val : Race_Core.getRunners(RACE.getUUID())) {
                          Scoreboards.add(objective.getScore(ChatColor.AQUA + val.getPlayer().getName()));
                          if (val.getMode() == Race_Mode.RUN) Scoreboards.add(objective.getScore("-Runnig...")); else if (val.getMode() == Race_Mode.GOAL) Scoreboards.add(objective.getScore(val.getTimest()));
                     }

@@ -31,7 +31,7 @@ public class Race_Timer extends BukkitRunnable {
 
      @Override
      public void run() {
-          if (Race_Core.Race_Run.isEmpty() || Race_Core.Race_Run.get(Race_UUID) == null) {
+          if (Race_Core.Race_Run.isEmpty() || Race_Core.getRunners(Race_UUID) == null) {
                cancel();
                return;
           }
@@ -47,7 +47,7 @@ public class Race_Timer extends BukkitRunnable {
                cancel();
                return;
           }
-          for (Race_Runner val : Race_Core.Race_Run.get(Race_UUID)) {
+          for (Race_Runner val : Race_Core.getRunners(Race_UUID)) {
                val.getPlayer().teleport(Race_Core.getRace(Race_UUID).getStartPointLoc().get(val.getJoin_Count() - 1).getLocation());
                val.UpdateScoreboard();
                val.getPlayer().playSound(val.getPlayer().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);

@@ -42,11 +42,11 @@ public class Menus {
           if (race.getJoin_Amount() == 0) {
                lores.add(ChatColor.GOLD + "Max Join : " + ChatColor.RED + "No Limit");
           } else {
-               if ((Race_Core.Race_Run.get(race.getUUID()) == null)) {
+               if ((Race_Core.getRuners(race) == null)) {
                     lores.add(ChatColor.GOLD + "Join " + ChatColor.RED + ": 0 / " + race.getJoin_Amount());
                } else {
-                    lores.add(ChatColor.GOLD + "Join : " + ChatColor.RED + Race_Core.Race_Run.get(race.getUUID()).size() + " / " + race.getJoin_Amount());
-                    for (Race_Runner val : Race_Core.Race_Run.get(race.getUUID())) lores.add(ChatColor.AQUA + "- " + val.getPlayer().getName());
+                    lores.add(ChatColor.GOLD + "Join : " + ChatColor.RED + Race_Core.getRuners(race).size() + " / " + race.getJoin_Amount());
+                    for (Race_Runner val : Race_Core.getRuners(race)) lores.add(ChatColor.AQUA + "- " + val.getPlayer().getName());
                }
           }
           lores.add(ChatColor.GOLD + "RAP : " + ChatColor.RED + race.getRap());
