@@ -83,7 +83,7 @@ public class Core extends JavaPlugin {
                          ((Player) sender).sendMessage(CollarMessage.setWarning() + "Need Name");
                          return false;
                     }
-                    run = Race_Core.getRuner((Player) sender);
+                    run = Race_Core.getRunner((Player) sender);
                     if (run.getMode() == Race_Mode.EDIT) {
                          if (args[1].equals("[ER]")) {
                               run.getPlayer().sendMessage(CollarMessage.setWarning() + "NG Word");
@@ -107,7 +107,7 @@ public class Core extends JavaPlugin {
                     onaddCheckpoint((Player) sender, args[1]);
                     break;
                case "start":
-                    run = Race_Core.getRuner((Player) sender);
+                    run = Race_Core.getRunner((Player) sender);
                     if (run == null) return false;
                     switch (run.getMode()) {
                          case EDIT:
@@ -174,7 +174,7 @@ public class Core extends JavaPlugin {
      }
 
      void onaddStartpoint(Player player) {
-          Race_Runner run = Race_Core.getRuner(player);
+          Race_Runner run = Race_Core.getRunner(player);
           if (run == null || !(run.getMode() == Race_Mode.EDIT)) return;
 
           Race_Core.getRace(run.getRaceID()).addStartPointLoc(player.getLocation());
@@ -184,7 +184,7 @@ public class Core extends JavaPlugin {
      }
 
      void onaddCheckpoint(Player player, String r) {
-          Race_Runner run = Race_Core.getRuner(player);
+          Race_Runner run = Race_Core.getRunner(player);
           if (run == null || !(run.getMode() == Race_Mode.EDIT)) return;
           try {
                if (Integer.parseInt(r) <= 0) {
@@ -202,7 +202,7 @@ public class Core extends JavaPlugin {
      }
 
      void onsetCheckPoint(Player player, int r, int no) {
-          Race_Runner run = Race_Core.getRuner(player);
+          Race_Runner run = Race_Core.getRunner(player);
           if (run == null || !(run.getMode() == Race_Mode.EDIT)) return;
           if (Race_Core.getRace(run.getRaceID()).getCheckPointLoc().size() == 0) {
                Race_Core.getRace(run.getRaceID()).addCheckPointLoc(player.getLocation(), r);
@@ -213,7 +213,7 @@ public class Core extends JavaPlugin {
      }
 
      void onrespawn(Player player) {
-          Race_Runner run = Race_Core.getRuner(player);
+          Race_Runner run = Race_Core.getRunner(player);
           if (run == null || run.getMode() == Race_Mode.EDIT) {
                player.sendMessage(CollarMessage.setInfo() + "You not join race");
                return;
@@ -229,7 +229,7 @@ public class Core extends JavaPlugin {
      }
 
      void remCheckPoint(Player player, int no) {
-          Race_Runner run = Race_Core.getRuner(player);
+          Race_Runner run = Race_Core.getRunner(player);
           if (run == null || !(run.getMode() == Race_Mode.EDIT)) return;
           Race_Core.getRace(run.getRaceID()).getCheckPointLoc().remove(no);
           run.UpdateScoreboard();

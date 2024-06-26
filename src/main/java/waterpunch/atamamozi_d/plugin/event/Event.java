@@ -43,7 +43,7 @@ public class Event implements Listener {
      @EventHandler
      public void onInventoryClickEvent(InventoryClickEvent event) {
           if (event.getInventory().toString().matches(".*" + "Custom" + ".*") && event.getInventory().getType() == InventoryType.CHEST) {
-               Race_Runner run = Race_Core.getRuner((Player) event.getWhoClicked());
+               Race_Runner run = Race_Core.getRunner((Player) event.getWhoClicked());
                if (event.getAction() != InventoryAction.PICKUP_ALL) return;
                switch (((Player) event.getWhoClicked()).getOpenInventory().getTitle().toString()) {
                     case "RACE_TOP_MENU":
@@ -83,11 +83,11 @@ public class Event implements Listener {
                          if (event.getRawSlot() == 20 || event.getRawSlot() == 29) {
                               Race_Core.getRace(run.getRaceID()).setRace_Type(Race_Type.WALK);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceType(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          } else if (event.getRawSlot() == 24 || event.getRawSlot() == 33) {
                               Race_Core.getRace(run.getRaceID()).setRace_Type(Race_Type.BOAT);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceType(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          }
                          break;
                     case "RACE_CREATE_RAP":
@@ -96,13 +96,13 @@ public class Event implements Listener {
                          if (event.getRawSlot() == 20) {
                               Race_Core.getRace(run.getRaceID()).setRap(Race_Core.getRace(run.getRaceID()).getRap() + 1);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceRap(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          }
                          if (event.getRawSlot() == 24) {
                               if (Race_Core.getRace(run.getRaceID()).getRap() == 1) return;
                               Race_Core.getRace(run.getRaceID()).setRap(Race_Core.getRace(run.getRaceID()).getRap() + 1);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceRap(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          }
                          break;
                     case "RACE_CREATE_AMOUNT":
@@ -111,13 +111,13 @@ public class Event implements Listener {
                          if (event.getRawSlot() == 20) {
                               Race_Core.getRace(run.getRaceID()).setJoin_Amount(Race_Core.getRace(run.getRaceID()).getJoin_Amount() + 1);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceAmount(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          }
                          if (event.getRawSlot() == 24) {
                               if (Race_Core.getRace(run.getRaceID()).getJoin_Amount() == 1) return;
                               Race_Core.getRace(run.getRaceID()).setJoin_Amount(Race_Core.getRace(run.getRaceID()).getJoin_Amount() - 1);
                               ((Player) event.getWhoClicked()).openInventory(Menus.getRaceAmount(((Player) event.getWhoClicked())));
-                              Race_Core.getRuner((Player) event.getWhoClicked()).UpdateScoreboard();
+                              Race_Core.getRunner((Player) event.getWhoClicked()).UpdateScoreboard();
                          }
                          break;
                     case "RACE_CREATE_ICON":
@@ -228,7 +228,7 @@ public class Event implements Listener {
      @EventHandler
      public void onPlayerMove(final PlayerMoveEvent event) {
           if (Race_Core.Race_Runner_List.isEmpty()) return;
-          Race_Runner run = Race_Core.getRuner(event.getPlayer());
+          Race_Runner run = Race_Core.getRunner(event.getPlayer());
           if (run == null) return;
           switch (run.getMode()) {
                case EDIT:

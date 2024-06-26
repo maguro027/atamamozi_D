@@ -29,7 +29,7 @@ public class Race_Runner {
           this.Race_mode = Race_Mode.WAIT;
           this.start_time = System.currentTimeMillis();
           this.st_Location = player.getLocation();
-          this.Join_Count = Race_Core.getRuners(Race_ID).size() + 1;
+          this.Join_Count = Race_Core.getRunners(Race_ID).size() + 1;
           this.scoreboard = new Race_Scoreboard();
           this.new_Location = player.getLocation();
           this.old_Location = player.getLocation();
@@ -42,7 +42,7 @@ public class Race_Runner {
           this.Race_mode = Race_Mode.WAIT;
           this.start_time = System.currentTimeMillis();
           this.st_Location = Player.getLocation();
-          this.Join_Count = Race_Core.getRuners(Race_ID).size() - 1;
+          this.Join_Count = Race_Core.getRunners(Race_ID).size() - 1;
           this.Rap = 0;
           this.CheckPoint = 0;
      }
@@ -64,7 +64,7 @@ public class Race_Runner {
      }
 
      public int getJoinCount() {
-          return Race_Core.getRuners(getRaceID()).size() - 1;
+          return Race_Core.getRunners(getRaceID()).size() - 1;
      }
 
      public void setnewLoc(Location loc) {
@@ -240,7 +240,7 @@ public class Race_Runner {
           setMode(Race_Mode.GOAL);
           getPlayer().playSound(Player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
           getPlayer().sendMessage(CollarMessage.setInfo() + "GOAL!!");
-          for (Race_Runner val : Race_Core.getRuners(RACE.getUUID())) {
+          for (Race_Runner val : Race_Core.getRunners(RACE.getUUID())) {
                val.getPlayer().sendMessage(CollarMessage.setInfo() + "[" + ChatColor.AQUA + Player.getName() + ChatColor.WHITE + "] " + getTimest());
                val.UpdateScoreboard();
           }
@@ -248,7 +248,7 @@ public class Race_Runner {
           getPlayer().teleport(st_Location);
           UpdateScoreboard();
           int i = 0;
-          for (Race_Runner val : Race_Core.getRuners(RACE.getUUID())) if (val.getMode() == Race_Mode.GOAL) i++;
-          if (i == Race_Core.getRuners(RACE.getUUID()).size()) Race_Core.AllGoal(RACE.getUUID());
+          for (Race_Runner val : Race_Core.getRunners(RACE.getUUID())) if (val.getMode() == Race_Mode.GOAL) i++;
+          if (i == Race_Core.getRunners(RACE.getUUID()).size()) Race_Core.AllGoal(RACE.getUUID());
      }
 }
