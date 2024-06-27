@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
+import waterpunch.atamamozi_d.plugin.main.Core;
 import waterpunch.atamamozi_d.plugin.tool.CollarMessage;
 import waterpunch.atamamozi_d.plugin.tool.Timers.Race_Timer;
 
@@ -42,6 +43,7 @@ public class Race_Core {
                     run = new Race_Runner(player, Race.getUUID());
                     getRunners(Race).add(run);
                     JoinMesseage(Race, player);
+                    if (getRunners(Race).size() == 1) new Race_Timer(Core.WAIT_TIME, Race.getUUID()).runTaskTimer(Core.getthis(), 0L, 20L);
                     break;
                case RUN:
                     player.sendMessage(CollarMessage.setInfo() + Race.getRace_name() + " is Active Race Please wait");
@@ -113,14 +115,20 @@ public class Race_Core {
                          getRace(run.getRaceID()).setMode(Race_Mode.WAIT);
                          Race_Run.remove(run.getRaceID());
                     }
-                    if (Race_Core.getRunners(run.getRaceID()) == null) {
+                    if (Race_Core.getRunners(run.getRaceID()) != null) {
                          Race_Core.getRunners(run.getRaceID()).clear();
                          return;
                     }
                     Race_Runner_List.remove(run);
-                    run = null;
 
                     int GOAL = 0;
+
+                    if (Race_Core.getRunners(run.getRaceID()) == null) {
+                         getRace(run.getRaceID()).setMode(Race_Mode.GOAL);
+                         Race_Core.Race_Run.remove(run.getRaceID());
+                         return;
+                    }
+
                     for (Race_Runner val : Race_Core.getRunners(run.getRaceID())) if (val.getMode() == Race_Mode.GOAL) GOAL++;
                     if (GOAL == Race_Core.getRunners(run.getRaceID()).size()) Race_Core.AllGoal(run.getRaceID());
                     break;
@@ -147,12 +155,20 @@ public class Race_Core {
           return null;
      }
 
+     public static ArrayList<Race_Runner> getRunners() {
+          return Race_Runner_List;
+     }
+
      public static ArrayList<Race_Runner> getRunners(Race race) {
-          return Race_Core.getRunners(race.getUUID());
+          return getRunners(race.getUUID());
      }
 
      public static ArrayList<Race_Runner> getRunners(UUID Race_UUID) {
-          return Race_Core.getRunners(Race_UUID);
+          return Race_Core.Race_Run.get(Race_UUID);
+     }
+
+     public static ArrayList<Race> getRaces() {
+          return Race_list;
      }
 
      public static Race getRace(String race_st) {
@@ -162,6 +178,15 @@ public class Race_Core {
 
      public static Race getRace(UUID race_uu) {
           for (Race val : Race_list) if (val.getUUID().equals(race_uu)) return val;
+          return null;
+     }
+
+     public static void getTimer(Race race) {
+          getTimer(race.getUUID());
+     }
+
+     public static Race_Timer getTimer(UUID uuid) {
+          for (Race_Timer val : Timers) if (val.getUUID().equals(uuid)) return val;
           return null;
      }
 
@@ -207,7 +232,7 @@ public class Race_Core {
                for (String st : RACE.getScore()) val.getPlayer().sendMessage(st);
                val.getPlayer().sendMessage(CollarMessage.setInfo() + "Race leave is  /atamamozi_d leave");
           }
-          for (Race_Runner val : Race_Core.getRunners(Race_ID)) Race_Core.Race_Runner_List.remove(getRunner(val.getPlayer()));
+          for (Race_Runner val : Race_Core.getRunners(Race_ID)) Race_Core.getRunners().remove(getRunner(val.getPlayer()));
 
           Race_Core.Race_Goal(RACE.getUUID());
           Race_Core.Race_Run.remove(RACE.getUUID());

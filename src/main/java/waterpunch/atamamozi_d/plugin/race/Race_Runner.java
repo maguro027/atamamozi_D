@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import waterpunch.atamamozi_d.plugin.menus.Race_List.Sort_Type;
 import waterpunch.atamamozi_d.plugin.tool.CollarMessage;
 import waterpunch.atamamozi_d.plugin.tool.Location.LocationViewer;
 import waterpunch.atamamozi_d.plugin.tool.Scoreboaed.Race_Scoreboard;
@@ -23,6 +24,9 @@ public class Race_Runner {
      private Race_Scoreboard scoreboard;
      private LocationViewer locationViewer;
 
+     private int Race_List_Page;
+     private Sort_Type Sort_Type;
+
      public Race_Runner(Player player, UUID Race_ID) {
           this.Player = player;
           this.Race_ID = Race_ID;
@@ -33,7 +37,9 @@ public class Race_Runner {
           this.scoreboard = new Race_Scoreboard();
           this.new_Location = player.getLocation();
           this.old_Location = player.getLocation();
-          Race_Core.Race_Runner_List.add(this);
+
+          this.Race_List_Page = 1;
+          Race_Core.getRunners().add(this);
           this.locationViewer = new LocationViewer(this);
      }
 
@@ -168,6 +174,14 @@ public class Race_Runner {
 
      public LocationViewer getLocationViewer() {
           return this.locationViewer;
+     }
+
+     public int getPage() {
+          return Race_List_Page;
+     }
+
+     public void setPage(int page) {
+          Race_List_Page = page;
      }
 
      public void Start() {

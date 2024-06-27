@@ -39,7 +39,7 @@ public class CreateJson {
           if (!(file_Race.exists())) file_Race.mkdir();
           String URL = file_Race + "/" + Race_Core.getRace(run.getRaceID()).getRace_name() + ".json";
           Main.createfile(URL);
-          Race_Core.Race_list.add(Race_Core.getRace(run.getRaceID()));
+          Race_Core.getRaces().add(Race_Core.getRace(run.getRaceID()));
           try (Writer writer = new FileWriter(URL)) {
                Gson gson = new Gson();
                gson.toJson(Race_Core.getRace(run.getRaceID()), writer);

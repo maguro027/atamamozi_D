@@ -35,14 +35,14 @@ public class Main {
                if (!tmpFile.getName().substring(tmpFile.getName().lastIndexOf(".")).equals(".json")) continue;
                try (FileReader fileReader = new FileReader(tmpFile)) {
                     Gson gson = new Gson();
-                    Race_Core.Race_list.add(gson.fromJson(fileReader, Race.class));
+                    Race_Core.getRaces().add(gson.fromJson(fileReader, Race.class));
                     System.out.println(tmpFile.getName());
                } catch (JsonSyntaxException | JsonIOException | IOException e) {
                     e.printStackTrace();
                     continue;
                }
           }
-          System.out.println(CollarMessage.setInfo() + "Load Complete " + Race_Core.Race_list.size() + " Races");
+          System.out.println(CollarMessage.setInfo() + "Load Complete " + Race_Core.getRaces().size() + " Races");
      }
 
      public static void createfile(String string) {

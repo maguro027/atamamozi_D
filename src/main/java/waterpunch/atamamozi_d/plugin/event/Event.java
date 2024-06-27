@@ -21,6 +21,7 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.plugin.Plugin;
 import waterpunch.atamamozi_d.plugin.menus.Menus;
+import waterpunch.atamamozi_d.plugin.menus.Race_List;
 import waterpunch.atamamozi_d.plugin.race.Race;
 import waterpunch.atamamozi_d.plugin.race.Race_Core;
 import waterpunch.atamamozi_d.plugin.race.Race_Mode;
@@ -48,15 +49,15 @@ public class Event implements Listener {
                switch (((Player) event.getWhoClicked()).getOpenInventory().getTitle().toString()) {
                     case "RACE_TOP_MENU":
                          event.setCancelled(true);
-                         if (event.getRawSlot() == 1) ((Player) event.getWhoClicked()).openInventory(Menus.getRaceList((Player) event.getWhoClicked()));
+                         if (event.getRawSlot() == 1) ((Player) event.getWhoClicked()).openInventory(Race_List.getMenu((Player) event.getWhoClicked()));
                          if (event.getRawSlot() == 7) ((Player) event.getWhoClicked()).openInventory(Menus.getRaceCreate(((Player) event.getWhoClicked())));
                          break;
                     case "RACE_LIST":
                          event.setCancelled(true);
                          if (event.getRawSlot() == 45) ((Player) event.getWhoClicked()).openInventory(Menus.getTop((Player) event.getWhoClicked()));
-                         if (event.getRawSlot() == 49) ((Player) event.getWhoClicked()).openInventory(Menus.getRaceList((Player) event.getWhoClicked()));
+                         if (event.getRawSlot() == 49) ((Player) event.getWhoClicked()).openInventory(Race_List.getMenu((Player) event.getWhoClicked()));
 
-                         if (event.getRawSlot() >= 9 && event.getRawSlot() < 45) {
+                         if (event.getRawSlot() >= 9 && event.getRawSlot() < 45) { //36
                               if (event.getCurrentItem() == null) return;
                               Race_Core.joinRace(Race_Core.getRace(event.getCurrentItem().getItemMeta().getDisplayName()), (Player) event.getWhoClicked());
                               ((Player) event.getWhoClicked()).closeInventory();
@@ -227,7 +228,7 @@ public class Event implements Listener {
 
      @EventHandler
      public void onPlayerMove(final PlayerMoveEvent event) {
-          if (Race_Core.Race_Runner_List.isEmpty()) return;
+          if (Race_Core.getRunners().isEmpty()) return;
           Race_Runner run = Race_Core.getRunner(event.getPlayer());
           if (run == null) return;
           switch (run.getMode()) {
@@ -263,7 +264,7 @@ public class Event implements Listener {
      @EventHandler
      public void AnitBoat_Damage(VehicleDestroyEvent event) {
           if (!(event.getVehicle().getPassenger() instanceof Player) || !(event.getVehicle().getType() == EntityType.BOAT)) return;
-          if (Race_Core.isJoin((Player) event.getVehicle().getPassenger())) for (Race_Runner val : Race_Core.Race_Runner_List) if (val.getPlayer().getUniqueId() == event.getVehicle().getPassenger().getUniqueId() && val.getMode() == Race_Mode.RUN) {
+          if (Race_Core.isJoin((Player) event.getVehicle().getPassenger())) for (Race_Runner val : Race_Core.getRunners()) if (val.getPlayer().getUniqueId() == event.getVehicle().getPassenger().getUniqueId() && val.getMode() == Race_Mode.RUN) {
                event.setCancelled(true);
                return;
           }
@@ -279,7 +280,7 @@ public class Event implements Listener {
                return;
           }
 
-          if (Race_Core.isJoin((Player) event.getExited())) for (Race_Runner val : Race_Core.Race_Runner_List) if (val.getPlayer() == (Player) event.getExited() && val.getMode() == Race_Mode.RUN) {
+          if (Race_Core.isJoin((Player) event.getExited())) for (Race_Runner val : Race_Core.getRunners()) if (val.getPlayer() == (Player) event.getExited() && val.getMode() == Race_Mode.RUN) {
                event.setCancelled(true);
 
                return;

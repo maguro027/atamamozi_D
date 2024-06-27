@@ -11,6 +11,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import waterpunch.atamamozi_d.plugin.event.Event;
 import waterpunch.atamamozi_d.plugin.menus.Menus;
+import waterpunch.atamamozi_d.plugin.menus.Race_List;
 import waterpunch.atamamozi_d.plugin.race.Race;
 import waterpunch.atamamozi_d.plugin.race.Race_Core;
 import waterpunch.atamamozi_d.plugin.race.Race_Mode;
@@ -23,7 +24,7 @@ import waterpunch.atamamozi_d.plugin.tool.Timers.Race_Timer;
 public class Core extends JavaPlugin {
 
      static Plugin Data;
-     public static int TIME;
+     public static int WAIT_TIME, START;
 
      @Override
      public void onEnable() {
@@ -31,7 +32,8 @@ public class Core extends JavaPlugin {
 
           saveDefaultConfig();
           getConfig();
-          TIME = getConfig().getInt("Setting.CountDown.WAIT");
+          WAIT_TIME = getConfig().getInt("Setting.CountDown.WAIT");
+          START = getConfig().getInt("Setting.CountDown.START");
 
           Data = this;
           new Event(this);
@@ -69,7 +71,7 @@ public class Core extends JavaPlugin {
                //      onstop((Player) sender);
                //      break;
                case "list":
-                    ((Player) sender).openInventory(Menus.getRaceList(((Player) sender)));
+                    ((Player) sender).openInventory(Race_List.getMenu(((Player) sender)));
                     break;
                case "leave":
                     onleave((Player) sender);
@@ -117,8 +119,8 @@ public class Core extends JavaPlugin {
                               run.getPlayer().sendMessage(CollarMessage.setInfo() + "Not join the race");
                               return false;
                          case WAIT:
-                              if (Race_Core.Timers.isEmpty()) new Race_Timer(5, run.getRaceID()).runTaskTimer(Core.getthis(), 0L, 20L);
-                              if (!Race_Core.Timers.contains(run.getRaceID())) new Race_Timer(5, run.getRaceID()).runTaskTimer(Core.getthis(), 0L, 20L);
+                              if (Race_Core.Timers.isEmpty()) Race_Core.getTimer(run.getRaceID()).upDateTimer(START);
+                              if (!Race_Core.Timers.contains(run.getRaceID())) Race_Core.getTimer(run.getRaceID()).upDateTimer(START);
                               break;
                          default:
                     }

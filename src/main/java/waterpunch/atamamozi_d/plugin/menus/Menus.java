@@ -101,16 +101,6 @@ public class Menus {
           return RACE_TOP_MENU;
      }
 
-     public static Inventory getRaceList(Player player) {
-          Inventory RACE_LIST = Bukkit.createInventory(player, 9 * 6, "RACE_LIST");
-          Menu_Item.setBorder(RACE_LIST);
-          RACE_LIST.setItem(49, new ItemStack(Menu_Item.getRace_LIST()));
-          RACE_LIST.setItem(48, new ItemStack(Menu_Item.getDebug()));
-          if (Race_Core.Race_list.size() == 0) return RACE_LIST;
-          for (int i = 0; i < Race_Core.Race_list.size(); i++) RACE_LIST.setItem(i + 9, new ItemStack(getRace(Race_Core.Race_list.get(i))));
-          return RACE_LIST;
-     }
-
      public static Inventory getRaceEdit(Player player) {
           Inventory RACE_EDIT = Bukkit.createInventory(player, 9 * 6, "RACE_EDIT");
           Menu_Item.setBorder(RACE_EDIT);
@@ -128,7 +118,7 @@ public class Menus {
                run = null;
                Race_Core.removeRunner(player);
                Race RACE = new Race(player);
-               Race_Core.Race_list.add(RACE);
+               Race_Core.getRaces().add(RACE);
                Race_Core.joinRace(RACE, player);
                RACE.setMode(Race_Mode.EDIT);
           }
@@ -203,7 +193,7 @@ public class Menus {
                Race_Core.getRace(run.getRaceID()).addErrorCount();
           } else {
                int i = 0;
-               for (Race R : Race_Core.Race_list) if (R.getRace_name().equals(Race_Core.getRace(run.getRaceID()).getRace_name())) i++;
+               for (Race R : Race_Core.getRaces()) if (R.getRace_name().equals(Race_Core.getRace(run.getRaceID()).getRace_name())) i++;
                if (i != 1) {
                     lores.add(ChatColor.RED + "[ER]" + ChatColor.GOLD + "Race Name : " + ChatColor.RED + "Already NAME");
                     Race_Core.getRace(run.getRaceID()).addErrorCount();

@@ -30,7 +30,7 @@ public class Race {
           this.rap = 1;
           this.race_Mode = Race_Mode.WAIT;
           this.join_amount = 1;
-          this.TIME = Core.TIME;
+          this.TIME = Core.WAIT_TIME;
      }
 
      public void addStartPointLoc(Location loc) {

@@ -53,8 +53,10 @@ public class Menu_Item {
           Debug_Meta.setDisplayName(ChatColor.GOLD + "Debug");
           List<String> lores = new ArrayList<String>();
           lores.add(ChatColor.AQUA + "-Runner-");
-          if (!Race_Core.Race_Runner_List.isEmpty()) lores.add(ChatColor.AQUA + "- size :" + Race_Core.Race_Runner_List.size() + " -");
-          if (!Race_Core.Race_Runner_List.isEmpty()) for (Race_Runner val : Race_Core.Race_Runner_List) lores.add(ChatColor.AQUA + "- " + val.getPlayer().getUniqueId());
+          if (!Race_Core.getRunners().isEmpty()) {
+               lores.add(ChatColor.AQUA + "- size :" + Race_Core.getRunners().size() + " -");
+               for (Race_Runner val : Race_Core.getRunners()) lores.add(ChatColor.AQUA + "- " + val.getPlayer().getUniqueId());
+          }
 
           Debug_Meta.setLore(lores);
           Debug.setItemMeta(Debug_Meta);
